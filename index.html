@@ -3,28 +3,33 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 	<title>Thompson Advisory, LLC</title>
+
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<!-- <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"> -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" media="print" onload="this.media='all'" />
+
 	<link rel="icon" href="assets/favicon.png">
 	<link rel="stylesheet" href="style.css">
-	<script src="main.js" defer></script>
+	<script src="scrollTracker.js"></script>
+	<script src="main.js"></script>
 </head>
 
 <body>
 	<section class="landing">
-		<div>
+		<div id="landing-container">
 			<div id="logo" class="logo">
 				<img src="assets/logo.svg"/>
 				<h1>Thompson Advisory, LLC</h1>
 			</div>
 			<div id="learn-more" class="learn-more">
 				<p>Learn more</p>
-				<img src="assets/down.svg"/>
+				<img id="arrow" src="assets/down.svg"/>
 			</div>
 		</div>
-		<img class="splash" src="assets/splash.jpg"/>
+		<img id="splash" src="assets/splash.jpg"/>
 	</section>
 	<section class="content">
+		<h2 class="motto">Let's discover how we can help with your case.</h2>
 	</section>
 </body>
