@@ -1,10 +1,12 @@
+function showSubmitSuccess(button, message, text) {
+	button.style.display = 'none';
+	message.innerText = text;
+	message.style.opacity = '1';
+}
+
 function submitForm(event, form, button, message) {
-	function showSubmitSuccess(text) {
-		button.style.display = 'none';
-		message.innerText = text;
-		message.style.opacity = '1';
-	}
 	event.preventDefault();
+	form.onsubmit = e => e.preventDefault(); // Prevent button spamming
 	button.innerText = 'Submitting...';
 
 	const formData = new FormData(form);
@@ -21,7 +23,8 @@ function submitForm(event, form, button, message) {
 	};
 
 	setTimeout(() => {
-		showSubmitSuccess('Message sent successfully.');
+		showSubmitSuccess(button, message, 'Message sent successfully.');
+		form.reset();
 	}, 1000);
 	/*
 	fetch('https://api.web3forms.com/submit', request)
@@ -43,6 +46,27 @@ function submitForm(event, form, button, message) {
 		*/
 }
 
+const delay = 2000;
+const holdTime = 2000;
+function animateExpertise(expertise) {
+	const count = expertise.children.length;
+	for (let i = 0; i < count; i++) {
+		const child = expertise.children[i];
+		function runAnimation() {
+			setTimeout(() => {
+				child.style.transform = 'scale(1.05)';
+				child.className = 'bright';
+				setTimeout(() => {
+					child.style.transform = 'scale(1)';
+					child.className = '';
+				}, holdTime);
+			}, delay * i);
+		}
+		runAnimation();
+		setInterval(runAnimation, delay * count);
+	}
+}
+
 window.addEventListener('load', function() {
 	// Get DOM elements
 	// TODO: landing should read clientheight then set the height, so it doesn't change on mobile
@@ -50,6 +74,7 @@ window.addEventListener('load', function() {
 	const logo = document.getElementById('logo');
 	const arrow = document.getElementById('arrow');
 	const splash = document.getElementById('splash');
+	const expertise = document.getElementById('expertise');
 
 	// Reveal Logo
 	logo.style.display = 'flex';
@@ -80,6 +105,8 @@ window.addEventListener('load', function() {
 		splash.style.opacity = opacity.toString();
 	}
 	updateLanding();
+
+	animateExpertise(expertise);
 
 	function onScroll() {
 		landingTracker.onScroll();
