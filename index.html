@@ -30,6 +30,38 @@
 		<img id="splash" src="assets/splash.jpg"/>
 	</section>
 	<section class="content">
-		<h2 class="motto">Let's discover how we can help with your case.</h2>
+		<div>
+			<h2 class="motto">Let's discover how we can help with your case.</h2>
+			<div class="content-container">
+				<ul id="expertise">
+					<li>Business Disputes</li>
+					<li>Employment Disputes</li>
+					<li>Regulated Utility Finance</li>
+					<li>Business Valuation</li>
+				</ul>
+				<form id="form" method="POST">
+					<input type="hidden" name="access_key" value="597bb63b-c3b0-41a2-943f-92dd706d169c"/>
+					<input type="hidden" name="subject" value="New Website Form Submission">
+					<input type="checkbox" name="botcheck" id="" style="display: none;">
+
+					<label for="firstname">First Name</label>
+					<input id="firstname" type="text" name="firstname"/>
+
+					<label for="lastname">Last Name</label>
+					<input id="lastname" type="text" name="lastname"/>
+
+					<label for="email">Email</label>
+					<input id="email" type="email" name="email"/>
+
+					<label for="message">Tell us more</label>
+					<textarea id="message" name="message"></textarea>
+
+					<div class="button-container">
+						<button type="submit" id="submit-button">Send Message</button>
+						<p id="success-message" class="absolute"></p>
+					</div>
+				</form>
+			</div>
+		</div>
 	</section>
 </body>
