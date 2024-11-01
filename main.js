@@ -1,4 +1,20 @@
-function showSubmitSuccess(button, message, text) {
+function revealLogo(logo) {
+	logo.style.display = 'flex';
+	setTimeout(() => logo.style.opacity = '1', 100);
+}
+
+function animateArrow(arrow) {
+	function arrowPulse() {
+		arrow.style.transform = 'translateY(0.5rem)';
+		setTimeout(() => {
+			arrow.style.transform = 'translateY(0)';
+		}, 1000);
+	}
+	arrowPulse();
+	setInterval(arrowPulse, 2000);
+}
+
+function showSubmitMessage(button, message, text) {
 	button.style.display = 'none';
 	message.innerText = text;
 	message.style.opacity = '1';
@@ -22,28 +38,15 @@ function submitForm(event, form, button, message) {
 		body: json
 	};
 
-	setTimeout(() => {
-		showSubmitSuccess(button, message, 'Message sent successfully.');
-		form.reset();
-	}, 1000);
-	/*
 	fetch('https://api.web3forms.com/submit', request)
-		.then(async response => {
-			const json = await response.json();
+		.then(response => {
 			if (response.status == 200) {
-				console.log(json.message);
-			} else {
-				console.log('ERROR:');
-				console.log(response);
-				console.log(json.message);
-			}
+				showSubmitMessage(button, message, 'Message sent successfully.');
+				form.reset();
+			} else
+				showSubmitMessage(button, message, 'There was an error submitting. Please try again later.');
 		})
-		.catch(error => console.log(error))
-		.then(() => {
-			console.log('do something visually now');
-			button.innerText = 'Done.';
-		});
-		*/
+		.catch(() => showSubmitMessage(button, message, 'There was an error submitting. Please try again later.'));
 }
 
 const delay = 2000;
@@ -67,56 +70,43 @@ function animateExpertise(expertise) {
 	}
 }
 
+function setLandingHeight(landing) {
+	let height = window.innerHeight;
+	if (height < 400) height = 400;
+	landing.style.height = `${height}px`;
+	console.log(`set landing height to ${height} pixels.`);
+}
+
 window.addEventListener('load', function() {
 	// Get DOM elements
-	// TODO: landing should read clientheight then set the height, so it doesn't change on mobile
 	const landing = document.getElementById('landing-container');
 	const logo = document.getElementById('logo');
 	const arrow = document.getElementById('arrow');
 	const splash = document.getElementById('splash');
 	const expertise = document.getElementById('expertise');
 
-	// Reveal Logo
-	logo.style.display = 'flex';
-	setTimeout(() => {
-		logo.style.opacity = '1';
-		// logo.style.transform = 'translateY(0)';
-	}, 100);
+	setLandingHeight(landing);
+	revealLogo(logo);
+	animateArrow(arrow);
+	animateExpertise(expertise);
 
-	// Animate down arrow
-	function arrowPulse() {
-		arrow.style.transform = 'translateY(0.5rem)';
-		setTimeout(() => {
-			arrow.style.transform = 'translateY(0)';
-		}, 1000);
-	}
-	arrowPulse();
-	setInterval(arrowPulse, 2000);
-
-	// Track landing scrolling
+	// Splash image fade on scroll
 	const landingTracker = new ScrollTracker(landing);
-
-	// Fade splash image
 	const splashMaxOpacity = 0.6;
-	// splash.style.opacity = splashMaxOpacity;
 
-	function updateLanding() {
+	function fadeSplash() {
 		const opacity = splashMaxOpacity * (1 - landingTracker.t);
 		splash.style.opacity = opacity.toString();
 	}
-	updateLanding();
-
-	animateExpertise(expertise);
+	fadeSplash();
 
 	function onScroll() {
 		landingTracker.onScroll();
-		if (landingTracker.changed) {
-			// updateLogo();
-			updateLanding();
-		}
+		if (landingTracker.changed) fadeSplash();
 	}
 
 	function onResize() {
+		setLandingHeight(landing);
 		landingTracker.onResize();
 		landingTracker.outPadding = 0.3 * window.innerHeight;
 		onScroll();
