@@ -20,7 +20,7 @@ html {
 }
 
 body {
-	background-color: var(--light-blue);
+	background-color: var(--background-color);
 }
 
 h1 {
