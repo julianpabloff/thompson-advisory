@@ -1,7 +1,8 @@
-function setLandingHeight(landing) {
+function setLandingHeight(landing, splash) {
 	let height = window.innerHeight;
 	if (height < 400) height = 400;
 	landing.style.height = `${height}px`;
+	splash.style.height = `${height}px`;
 }
 
 function revealLogo(logo) {
@@ -97,7 +98,7 @@ window.addEventListener('load', function() {
 	const expertise = document.getElementById('expertise');
 
 	// Startup
-	setLandingHeight(landing);
+	setLandingHeight(landing, splash);
 	revealLogo(logo);
 	animateArrow(arrow);
 	animateExpertise(expertise);
