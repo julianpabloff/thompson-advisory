@@ -1,3 +1,9 @@
+function setLandingHeight(landing) {
+	let height = window.innerHeight;
+	if (height < 400) height = 400;
+	landing.style.height = `${height}px`;
+}
+
 function revealLogo(logo) {
 	logo.style.display = 'flex';
 	setTimeout(() => logo.style.opacity = '1', 100);
@@ -12,6 +18,10 @@ function animateArrow(arrow) {
 	}
 	arrowPulse();
 	setInterval(arrowPulse, 2000);
+}
+
+function autoScrollDown(target) {
+	target.scrollIntoView({ behavior: 'smooth' });
 }
 
 function showSubmitMessage(button, message, text) {
@@ -70,43 +80,38 @@ function animateExpertise(expertise) {
 	}
 }
 
-function setLandingHeight(landing) {
-	let height = window.innerHeight;
-	if (height < 400) height = 400;
-	landing.style.height = `${height}px`;
-	console.log(`set landing height to ${height} pixels.`);
+const splashMaxOpacity = 0.6;
+function setSplashFade(splash, t = 0) {
+	const opacity = splashMaxOpacity * (1 - t);
+	splash.style.opacity = opacity.toString();
 }
 
 window.addEventListener('load', function() {
 	// Get DOM elements
 	const landing = document.getElementById('landing-container');
 	const logo = document.getElementById('logo');
+	const learnMore = document.getElementById('learn-more');
 	const arrow = document.getElementById('arrow');
 	const splash = document.getElementById('splash');
+	const content = document.getElementById('content');
 	const expertise = document.getElementById('expertise');
 
+	// Startup
 	setLandingHeight(landing);
 	revealLogo(logo);
 	animateArrow(arrow);
 	animateExpertise(expertise);
 
+	// Scroll down to content
+	learnMore.onclick = () => autoScrollDown(content);
+
 	// Splash image fade on scroll
 	const landingTracker = new ScrollTracker(landing);
-	const splashMaxOpacity = 0.6;
-
-	function fadeSplash() {
-		const opacity = splashMaxOpacity * (1 - landingTracker.t);
-		splash.style.opacity = opacity.toString();
-	}
-	fadeSplash();
-
 	function onScroll() {
 		landingTracker.onScroll();
-		if (landingTracker.changed) fadeSplash();
+		setSplashFade(splash, landingTracker.t);
 	}
-
 	function onResize() {
-		setLandingHeight(landing);
 		landingTracker.onResize();
 		landingTracker.outPadding = 0.3 * window.innerHeight;
 		onScroll();
