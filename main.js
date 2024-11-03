@@ -119,13 +119,14 @@ window.addEventListener('load', function() {
 	}
 	onResize();
 
+	window.onscroll = onScroll;
+	window.onresize = onResize;
+
 	// FORM
 	const form = document.getElementById('form');
 	const submitButton = document.getElementById('submit-button');
 	const successMessage = document.getElementById('success-message');
+
 	submitButton.onmouseup = () => submitButton.blur();
 	form.onsubmit = event => submitForm(event, form, submitButton, successMessage);
-
-	window.onscroll = onScroll;
-	window.onresize = onResize;
 });
