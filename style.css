@@ -104,7 +104,8 @@ img#splash {
 
 section#content {
 	width: 100%;
-	padding: 175px 10vw;
+	padding: 10vw;
+	padding-top: 175px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -126,7 +127,8 @@ div.content-container {
 	padding-bottom: 100px;
 	display: flex;
 	justify-content: space-between;
-	gap: 20px;
+	gap: min(4vw, 70px);
+	/* flex-wrap: wrap; */
 }
 
 div.content-container > * {
@@ -161,7 +163,7 @@ form {
 	--bright: #aec0d0;
 	--dim: var(--dim-text);
 	--backdrop: #293644;
-	max-width: 700px;
+	max-width: 550px;
 	display: flex;
 	flex-direction: column;
 }
@@ -229,6 +231,11 @@ p#success-message {
 	transition: opacity 0.4s ease-out;
 }
 
+div.profile img {
+	width: 100%;
+	object-fit: cover;
+}
+
 @media screen and (max-width: 1024px) {
 	html {
 		font-size: 14px;
@@ -238,6 +245,10 @@ p#success-message {
 	}
 	div.content-container > * {
 		width: 100%;
+	}
+	div.profile img {
+		max-height: 650px;
+		object-position: 0 25%;
 	}
 }
 
@@ -252,6 +263,9 @@ p#success-message {
 	div#logo h1 {
 		width: min-content;
 		font-size: 1.4rem;
+	}
+	div.content-container {
+		gap: 10vw;
 	}
 	textarea {
 		height: 10rem;
