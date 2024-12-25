@@ -231,9 +231,22 @@ p#success-message {
 	transition: opacity 0.4s ease-out;
 }
 
+div.profile {
+	height: fit-content;
+	position: relative;
+}
+
 div.profile img {
 	width: 100%;
 	object-fit: cover;
+}
+
+div.profile p.caption {
+	font-size: 1.2rem;
+	font-style: italic;
+	position: absolute;
+	bottom: -1.7em;
+	color: var(--bright-text);
 }
 
 @media screen and (max-width: 1024px) {
@@ -242,6 +255,7 @@ div.profile img {
 	}
 	div.content-container {
 		flex-direction: column;
+		gap: 14vw;
 	}
 	div.content-container > * {
 		width: 100%;
@@ -263,9 +277,6 @@ div.profile img {
 	div#logo h1 {
 		width: min-content;
 		font-size: 1.4rem;
-	}
-	div.content-container {
-		gap: 10vw;
 	}
 	textarea {
 		height: 10rem;
